@@ -2,11 +2,21 @@
 #include "ui_mainwindow.h"
 #include "createwindow.h"
 
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    QSqlDatabase mydb=QSqlDatabase::addDatabase("QSQLite");
+    mydb.setDatabaseName("E:/MyWork/moskalev/my work/mydatabase.sqlite");
+
+    if (!mydb.open())
+        ui->label->setText("Failed to open the database");
+    else
+        ui->label->setText("Database is connected");
 }
 
 MainWindow::~MainWindow()
@@ -26,6 +36,6 @@ void MainWindow::on_action_2_triggered()
 
 void MainWindow::on_CreateButton_clicked()
 {
-  /*  Createwindow *wnd = new Createwindow(this);
-    *wnd -> show();*/ //здесь попытки "подружить" второе окно с первым, почему-то выдает ошибку
+  Createwindow *wnd = new Createwindow(this);
+  wnd->show();
 }
